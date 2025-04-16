@@ -9,12 +9,13 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
   
   useEffect(() => {
     if (messages.length === 0) {
       setMessages([{
         role: 'assistant',
-        content: "Hello! I'm your AI portfolio assistant. How can I help you optimize your investments today?"
+        content: "Hi there! I'm Opto, your portfolio assistant. Ready to explore private alternatives or fine-tune your allocations? Just ask."
       }]);
     }
   }, []);
@@ -22,6 +23,26 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+  
+  useEffect(() => {
+    const resizeTextarea = () => {
+      const textarea = textareaRef.current;
+      if (!textarea) return;
+      
+      textarea.style.height = 'auto';
+      
+      // Calculate new height (with a max height)
+      const maxHeight = 120; // Maximum height in pixels before scrolling
+      const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+      
+      textarea.style.height = `${newHeight}px`;
+      
+      // Add scrollbar if content exceeds max height
+      textarea.style.overflowY = newHeight === maxHeight ? 'auto' : 'hidden';
+    };
+    
+    resizeTextarea();
+  }, [input]);
   
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -63,11 +84,13 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
+
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: 'Sorry, I encountered an error processing your request.'
       }]);
     } finally {
+      
       setIsLoading(false);
     }
   };
@@ -90,14 +113,11 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
     };
     
     const result = {};
-    
-    // Process private categories
     data.private.categories.forEach(item => {
       const key = mapping[item.name];
       if (key) result[key] = item.value;
     });
     
-    // Process public categories
     data.public.categories.forEach(item => {
       const key = mapping[item.name];
       if (key) result[key] = item.value;
@@ -141,6 +161,7 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
       
       <div className="chat-input-container">
         <textarea
+          ref={textareaRef}
           className="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
