@@ -258,3 +258,62 @@ background-color: #f8f9fa;
   right: -100%;
 }
 }
+
+.simulation-controls {
+display: flex;
+justify-content: space-between;
+padding: 12px 16px;
+border-top: 1px solid #e9ecef;
+background-color: #f8f9fa;
+}
+
+.simulation-button {
+padding: 8px 16px;
+border-radius: 4px;
+font-size: 14px;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.2s ease;
+}
+
+.simulation-button.reset {
+background-color: white;
+border: 1px solid #dee2e6;
+color: #495057;
+}
+
+.simulation-button.save {
+background-color: #26665e;
+border: none;
+color: white;
+}
+
+.simulation-button.reset:hover {
+background-color: #f1f3f5;
+}
+
+.simulation-button.save:hover {
+background-color: #1e544e;
+}
+
+.message-content.function-result {
+background-color: #edf7f6;
+padding: 10px;
+border-radius: 4px;
+margin-top: 8px;
+}
+
+/* Update the chat-messages max height to account for simulation controls */
+.chat-panel.in-simulation .chat-messages {
+max-height: calc(100vh - 200px);
+}
+
+.simulation-indicator {
+font-size: 12px;
+background-color: #ff8800;
+color: white;
+padding: 2px 6px;
+border-radius: 4px;
+margin-left: 8px;
+font-weight: normal;
+}

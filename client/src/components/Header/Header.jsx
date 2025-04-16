@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ChatButton from '../ChatBot/ChatButton.jsx';
 import './Header.css';
 
-const Header = ({ portfolioType, portfolioData }) => {
+const Header = ({ portfolioType, portfolioData, isSimulation, onReset, onSave, onPortfolioUpdate }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -18,7 +18,10 @@ const Header = ({ portfolioType, portfolioData }) => {
   return (
     <header className="header">
       <div className="header-left">
-        <h1 className="header-title">Model portfolio</h1>
+        <h1 className="header-title">
+          Model portfolio
+          {isSimulation && <span className="simulation-badge">Simulation Mode</span>}
+        </h1>
       </div>
       
       <div className="header-right">
@@ -67,9 +70,24 @@ const Header = ({ portfolioType, portfolioData }) => {
             </div>
           )}
           
-          <button className="reset-button">Reset</button>
-          <button className="save-button">Save</button>
-          <ChatButton portfolioData={portfolioData} />
+          <button 
+            className={`reset-button ${isSimulation ? 'active' : ''}`} 
+            onClick={onReset}
+            disabled={!isSimulation}
+          >
+            Reset
+          </button>
+          <button 
+            className={`save-button ${isSimulation ? 'active' : ''}`}
+            onClick={onSave}
+            disabled={!isSimulation}
+          >
+            Save
+          </button>
+          <ChatButton 
+            portfolioData={portfolioData} 
+            onPortfolioUpdate={onPortfolioUpdate}
+          />
         </div>
       </div>
     </header>
