@@ -1,116 +1,116 @@
 /* src/components/HistoricalAnalysis/HistoricalAnalysis.css */
 .historical-analysis {
-    margin-bottom: 20px;
-  }
-  
-  .pagination-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .pagination-button {
-    background: none;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
-  .pagination-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  .pagination-info {
-    font-size: 14px;
-    color: #6c757d;
-  }
-  
-  .performance-periods {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-    gap: 15px;
-  }
-  
-  .period-card {
-    flex: 1;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
-  }
-  
-  .period-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #6c757d;
-  }
-  
-  .info-icon {
-    font-size: 12px;
-    cursor: pointer;
-  }
-  
-  .period-timeframe {
-    font-size: 14px;
-    color: #6c757d;
-    margin-bottom: 10px;
-  }
-  
-  .period-value {
-    font-size: 16px;
-    font-weight: 500;
-  }
-  
-  .period-value.positive {
-    color: #198754;
-  }
-  
-  .period-value.negative {
-    color: #dc3545;
-  }
-  
-  .inflation-analysis {
-    margin-top: 30px;
-  }
-  
-  .inflation-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 15px;
-  }
-  
-  .chart-container {
-    height: 250px;
-    width: 100%;
-  }
-  
-  /* Customize D3 chart elements */
-  .chart-container text {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 12px;
-    color: #6c757d;
-  }
-  
-  .chart-container .domain,
-  .chart-container .tick line {
-    stroke: #e9ecef;
-  }
-  
-  .chart-container .tick text {
-    fill: #6c757d;
-  }
-  
-  @media (max-width: 768px) {
-    .performance-periods {
-      flex-direction: column;
-    }
-  }
+margin-bottom: 20px;
+}
+
+.pagination-controls {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.pagination-button {
+background: none;
+border: 1px solid #dee2e6;
+border-radius: 4px;
+width: 30px;
+height: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+}
+
+.pagination-button:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+}
+
+.pagination-info {
+font-size: 14px;
+color: #6c757d;
+}
+
+.performance-periods {
+display: flex;
+justify-content: space-between;
+margin: 20px 0;
+gap: 15px;
+}
+
+.period-card {
+flex: 1;
+padding: 15px;
+background-color: #f8f9fa;
+border-radius: 4px;
+}
+
+.period-label {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 5px;
+font-size: 14px;
+color: #6c757d;
+}
+
+.info-icon {
+font-size: 12px;
+cursor: pointer;
+}
+
+.period-timeframe {
+font-size: 14px;
+color: #6c757d;
+margin-bottom: 10px;
+}
+
+.period-value {
+font-size: 16px;
+font-weight: 500;
+}
+
+.period-value.positive {
+color: #198754;
+}
+
+.period-value.negative {
+color: #dc3545;
+}
+
+.inflation-analysis {
+margin-top: 30px;
+}
+
+.inflation-title {
+font-size: 16px;
+font-weight: 500;
+margin-bottom: 15px;
+}
+
+.chart-container {
+height: 250px;
+width: 100%;
+}
+
+/* Customize D3 chart elements */
+.chart-container text {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+font-size: 12px;
+color: #6c757d;
+}
+
+.chart-container .domain,
+.chart-container .tick line {
+stroke: #e9ecef;
+}
+
+.chart-container .tick text {
+fill: #6c757d;
+}
+
+@media (max-width: 768px) {
+.performance-periods {
+    flex-direction: column;
+}
+}

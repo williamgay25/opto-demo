@@ -2,7 +2,6 @@
 import './TargetPortfolio.css';
 
 const TargetPortfolio = ({ privateData, publicData }) => {
-  // Helper function to render change indicator
   const renderChangeIndicator = (change) => {
     if (change === 0) return null;
     
@@ -15,7 +14,6 @@ const TargetPortfolio = ({ privateData, publicData }) => {
     );
   };
   
-  // Helper function to render allocation item
   const renderAllocationItem = (item, itemIndex, isCategory = false) => {
     return (
       <div key={itemIndex} className={`allocation-item ${isCategory ? 'category-item' : ''}`}>
@@ -35,7 +33,6 @@ const TargetPortfolio = ({ privateData, publicData }) => {
     );
   };
   
-  // Helper function to get category color
   const getCategoryColor = (categoryName) => {
     const colorMap = {
       'Venture capital - early stage': '#205e6e',

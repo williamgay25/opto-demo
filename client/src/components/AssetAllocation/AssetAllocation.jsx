@@ -9,10 +9,8 @@ const AssetAllocation = ({ data }) => {
   useEffect(() => {
     if (!chartRef.current || !data) return;
     
-    // Clear previous chart
     d3.select(chartRef.current).selectAll('*').remove();
     
-    // Prepare data for donut chart
     const donutData = [
       ...data.private.categories.map(category => ({
         name: category.name,
@@ -28,13 +26,12 @@ const AssetAllocation = ({ data }) => {
     
     // Chart dimensions
     const containerWidth = chartRef.current.clientWidth;
-    const containerHeight = 250; // Fixed height for better proportions
+    const containerHeight = 250;
     const width = Math.min(containerWidth, containerHeight);
-    const height = width; // Keep it square
+    const height = width;
     const margin = 0;
     const radius = Math.min(width, height) / 2 - margin;
     
-    // Create SVG
     const svg = d3.select(chartRef.current)
       .append('svg')
       .attr('width', width)
@@ -43,29 +40,23 @@ const AssetAllocation = ({ data }) => {
       .append('g')
       .attr('transform', `translate(${width / 2}, ${height / 2})`);
     
-    // Color scale matching the design
     const colorScale = d3.scaleOrdinal()
       .domain(donutData.map(d => d.name))
       .range([
-        // Private categories - darker greens to lighter teals
         '#1f4e42', '#286e5b', '#42a792', '#a8d4d1', 
-        // Public categories - blues
         '#5a8fcd', '#adc8e8'
       ]);
     
-    // Donut layout
     const pie = d3.pie()
       .value(d => d.value)
       .sort(null)
-      .padAngle(0.02); // Add space between segments
+      .padAngle(0.02);
     
-    // Arc generator
     const arc = d3.arc()
-      .innerRadius(radius * 0.67) // Create larger donut hole
+      .innerRadius(radius * 0.67)
       .outerRadius(radius)
-      .cornerRadius(3); // Slightly rounded corners
+      .cornerRadius(3);
     
-    // Draw donut segments
     svg.selectAll('path')
       .data(pie(donutData))
       .enter()
@@ -76,7 +67,6 @@ const AssetAllocation = ({ data }) => {
       .attr('stroke-width', 2)
       .style('opacity', 1);
     
-    // Create center white circle with border
     svg.append('circle')
       .attr('cx', 0)
       .attr('cy', 0)
@@ -85,7 +75,6 @@ const AssetAllocation = ({ data }) => {
       .attr('stroke', '#f0f0f0')
       .attr('stroke-width', 1);
     
-    // Add center text
     svg.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', -5)

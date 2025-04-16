@@ -11,15 +11,12 @@ const HistoricalAnalysis = ({ data }) => {
   useEffect(() => {
     if (!chartRef.current || !data.inflationData) return;
     
-    // Clear previous chart
     d3.select(chartRef.current).selectAll('*').remove();
     
-    // Chart dimensions
     const margin = { top: 20, right: 30, bottom: 40, left: 60 };
     const width = chartRef.current.clientWidth - margin.left - margin.right;
     const height = 250 - margin.top - margin.bottom;
     
-    // Create SVG
     const svg = d3.select(chartRef.current)
       .append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -27,36 +24,30 @@ const HistoricalAnalysis = ({ data }) => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
     
-    // X scale (years)
     const xScale = d3.scaleLinear()
       .domain([d3.min(data.inflationData, d => d.year), d3.max(data.inflationData, d => d.year)])
       .range([0, width]);
     
-    // Y scale (percent)
     const yScale = d3.scaleLinear()
-      .domain([-25, 100]) // Set range from -25% to 100%
+      .domain([-25, 100])
       .range([height, 0]);
     
-    // X axis
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(xScale)
         .tickFormat(d => d.toString())
         .ticks(6));
     
-    // Y axis
     svg.append('g')
       .call(d3.axisLeft(yScale)
         .tickFormat(d => `${d}%`)
         .ticks(5));
     
-    // Line generator
     const line = d3.line()
       .x(d => xScale(d.year))
       .y(d => yScale(d.value))
       .curve(d3.curveMonotoneX);
     
-    // Draw Current Portfolio line
     svg.append('path')
       .datum(data.inflationData)
       .attr('fill', 'none')
@@ -64,10 +55,9 @@ const HistoricalAnalysis = ({ data }) => {
       .attr('stroke-width', 2)
       .attr('d', line);
     
-    // Draw Target Portfolio line (in this case we'll just offset the current data for visual purposes)
     const targetData = data.inflationData.map(d => ({
       year: d.year,
-      value: d.value + 5 // Offset by 5% for visual difference
+      value: d.value + 5
     }));
     
     svg.append('path')
@@ -77,11 +67,9 @@ const HistoricalAnalysis = ({ data }) => {
       .attr('stroke-width', 2)
       .attr('d', line);
     
-    // Add legend
     const legend = svg.append('g')
       .attr('transform', `translate(${width - 160}, ${height - 50})`);
     
-    // Current portfolio legend
     legend.append('line')
       .attr('x1', 0)
       .attr('y1', 0)
@@ -96,7 +84,6 @@ const HistoricalAnalysis = ({ data }) => {
       .text('Current portfolio')
       .attr('font-size', '10px');
     
-    // Target portfolio legend
     legend.append('line')
       .attr('x1', 0)
       .attr('y1', 15)
@@ -113,7 +100,6 @@ const HistoricalAnalysis = ({ data }) => {
     
   }, [data.inflationData]);
   
-  // Helper function to render performance periods
   const renderPerformancePeriods = () => {
     const periods = [
       { label: 'All time', period: data.allTime.period, value: data.allTime.value },
@@ -137,7 +123,6 @@ const HistoricalAnalysis = ({ data }) => {
     );
   };
   
-  // Handle pagination
   const handlePrevPage = () => {
     setActivePage(prev => (prev > 1 ? prev - 1 : prev));
   };

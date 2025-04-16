@@ -1,7 +1,6 @@
 // src/components/MetricCard/MetricCard.jsx
 import './MetricCard.css';
 
-// Helper function to format values
 const formatValue = (value, format) => {
   switch (format) {
     case 'percent':

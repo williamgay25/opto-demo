@@ -39,7 +39,7 @@ const Header = ({ portfolioType }) => {
                   onClick={() => {
                     console.log(`Selected portfolio: ${option}`);
                     setIsDropdownOpen(false);
-                    // Here you would update the portfolio type in parent component
+                    // TODO: add the update of the model portfolio
                   }}
                 >
                   {option}

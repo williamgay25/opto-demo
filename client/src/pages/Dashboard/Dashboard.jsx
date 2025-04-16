@@ -9,7 +9,6 @@ import TargetPortfolio from '../../components/TargetPortfolio/TargetPortfolio';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  // State for all dashboard data
   const [portfolioData, setPortfolioData] = useState({
     portfolioType: 'Balanced Portfolio',
     metrics: {
@@ -81,9 +80,7 @@ const Dashboard = () => {
     }
   });
 
-  // Simulate fetching data from backend
   useEffect(() => {
-    // This would be replaced with actual API calls
     const fetchData = async () => {
       try {
         // Mock API response
@@ -91,7 +88,6 @@ const Dashboard = () => {
         // const data = await response.json();
         // setPortfolioData(data);
         
-        // For now, we're using the mock data initialized in state
         console.log('Mock data loaded successfully');
       } catch (error) {
         console.error('Error fetching portfolio data:', error);
