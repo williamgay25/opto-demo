@@ -2,11 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './ChatPanel.css';
 
-// Local Development
-const BACKEND_URL = 'http://localhost:5173/';
-
-// Production
-// const BACKEND_URL = 'https://opto-demo-production.up.railway.app';
+const url = import.meta.env.VITE_BACKEND_URL + '/chat';
 
 const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
   const [messages, setMessages] = useState([]);
@@ -36,7 +32,7 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
     setIsLoading(true);
     
     try {
-      const response = await fetch(`${BACKEND_URL}/chat`, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

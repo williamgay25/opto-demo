@@ -14,11 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Local Development
-        const url = 'http://localhost:8000/portfolio-data'
-
-        // Production
-        // const url = 'https://opto-demo-production.up.railway.app/portfolio-data'
+        const url = import.meta.env.VITE_BACKEND_URL + '/portfolio-data';
         
         const response = await fetch(url);
         const data = await response.json();
