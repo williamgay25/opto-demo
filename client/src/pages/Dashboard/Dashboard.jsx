@@ -6,7 +6,6 @@ import ProjectedValue from '../../components/ProjectedValue/ProjectedValue';
 import AssetAllocation from '../../components/AssetAllocation/AssetAllocation';
 import HistoricalAnalysis from '../../components/HistoricalAnalysis/HistoricalAnalysis';
 import TargetPortfolio from '../../components/TargetPortfolio/TargetPortfolio';
-import ChatBot from '../../components/ChatBot/ChatBot'; 
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -43,7 +42,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <Header portfolioType={portfolioData.portfolioType} />
+      <Header portfolioType={portfolioData.portfolioType} portfolioData={portfolioData} />
       
       <div className="dashboard-content">
         <div className="left-column">
@@ -64,7 +63,6 @@ const Dashboard = () => {
             privateData={portfolioData.assetAllocation.private} 
             publicData={portfolioData.assetAllocation.public} 
           />
-          <ChatBot portfolioData={portfolioData} /> {/* Add this */}
         </div>
       </div>
     </div>

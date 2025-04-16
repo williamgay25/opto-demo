@@ -1,8 +1,9 @@
 // src/components/Header/Header.jsx
 import { useState } from 'react';
+import ChatButton from '../ChatBot/ChatButton.jsx';
 import './Header.css';
 
-const Header = ({ portfolioType }) => {
+const Header = ({ portfolioType, portfolioData }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -68,6 +69,7 @@ const Header = ({ portfolioType }) => {
           
           <button className="reset-button">Reset</button>
           <button className="save-button">Save</button>
+          <ChatButton portfolioData={portfolioData} />
         </div>
       </div>
     </header>
