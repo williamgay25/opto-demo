@@ -6,6 +6,7 @@ import ProjectedValue from '../../components/ProjectedValue/ProjectedValue';
 import AssetAllocation from '../../components/AssetAllocation/AssetAllocation';
 import HistoricalAnalysis from '../../components/HistoricalAnalysis/HistoricalAnalysis';
 import TargetPortfolio from '../../components/TargetPortfolio/TargetPortfolio';
+import ChatBot from '../../components/ChatBot/ChatBot'; 
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -15,10 +16,10 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Local Development
-        // const url = 'http://localhost:8000/portfolio-data'
+        const url = 'http://localhost:8000/portfolio-data'
 
         // Production
-        const url = 'https://opto-demo-production.up.railway.app/portfolio-data'
+        // const url = 'https://opto-demo-production.up.railway.app/portfolio-data'
         
         const response = await fetch(url);
         const data = await response.json();
@@ -53,7 +54,7 @@ const Dashboard = () => {
             targetData={portfolioData.projectedValue.target} 
           />
           
-          <HistoricalAnalysis data={portfolioData.historicalAnalysis} />
+          <HistoricalAnalysis data={portfolioData.historical_scenarios} />
         </div>
         
         <div className="right-column">
@@ -63,6 +64,7 @@ const Dashboard = () => {
             privateData={portfolioData.assetAllocation.private} 
             publicData={portfolioData.assetAllocation.public} 
           />
+          <ChatBot portfolioData={portfolioData} /> {/* Add this */}
         </div>
       </div>
     </div>

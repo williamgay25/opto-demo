@@ -70,8 +70,12 @@ mock_data = {
         ]
     },
     "historical_scenarios": {
+        "all_time": {
+            "period": "2007-2024",
+            "value": 1 
+        },
         "financial_crisis": {
-            "description": "2007-2009 Financial Crisis",
+            "period": "2007-2009",
             "asset_performance": {
                 "private_equity": -25.0,
                 "venture_capital": -30.0,
@@ -79,10 +83,11 @@ mock_data = {
                 "real_estate_core": -20.0,
                 "public_bonds": 5.0,
                 "public_equities": -40.0
-            }
+            },
+            "value": 2
         },
         "inflation": {
-            "description": "2007-2024 Inflation and Rising Rates",
+            "period": "2007-2024",
             "asset_performance": {
                 "private_equity": 12.0,
                 "venture_capital": 15.0,
@@ -90,10 +95,11 @@ mock_data = {
                 "real_estate_core": 6.0,
                 "public_bonds": -2.0,
                 "public_equities": 5.0
-            }
+            },
+            "value": 2
         },
         "european_debt_crisis": {
-            "description": "2010-2012 European Debt Crisis",
+            "period": "2010-2012",
             "asset_performance": {
                 "private_equity": -5.0,
                 "venture_capital": -8.0,
@@ -101,7 +107,8 @@ mock_data = {
                 "real_estate_core": -3.0,
                 "public_bonds": 8.0,
                 "public_equities": -15.0
-            }
+            },
+            "value": 2
         }
     }
 }

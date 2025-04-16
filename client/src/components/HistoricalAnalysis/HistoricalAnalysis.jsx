@@ -102,9 +102,10 @@ const HistoricalAnalysis = ({ data }) => {
   
   const renderPerformancePeriods = () => {
     const periods = [
-      { label: 'All time', period: data.allTime.period, value: data.allTime.value },
-      { label: 'Financial crisis', period: data.financialCrisis.period, value: data.financialCrisis.value },
-      { label: 'European debt crisis', period: data.europeanDebtCrisis.period, value: data.europeanDebtCrisis.value }
+      { label: 'All time', period: data.all_time.period, value: data.all_time.value },
+      { label: 'Financial crisis', period: data.financial_crisis.period, value: data.financial_crisis.value },
+      { label: 'European debt crisis', period: data.european_debt_crisis.period, value: data.european_debt_crisis.value },
+      { label: 'Inflation', period: data.financial_crisis.period, value: data.financial_crisis.value },
     ];
     
     return (
