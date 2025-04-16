@@ -1,5 +1,6 @@
 // ChatPanel.jsx - The slide-in chat panel
 import { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
 import './ChatPanel.css';
 
 const url = import.meta.env.VITE_BACKEND_URL + '/chat';
@@ -31,13 +32,10 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
       
       textarea.style.height = 'auto';
       
-      // Calculate new height (with a max height)
-      const maxHeight = 120; // Maximum height in pixels before scrolling
+      const maxHeight = 120;
       const newHeight = Math.min(textarea.scrollHeight, maxHeight);
       
       textarea.style.height = `${newHeight}px`;
-      
-      // Add scrollbar if content exceeds max height
       textarea.style.overflowY = newHeight === maxHeight ? 'auto' : 'hidden';
     };
     
@@ -144,7 +142,9 @@ const ChatPanel = ({ isOpen, onClose, portfolioData }) => {
       <div className="chat-messages">
         {messages.map((msg, idx) => (
           <div key={idx} className={`message ${msg.role}`}>
-            <div className="message-content">{msg.content}</div>
+            <div className="message-content">
+              <ReactMarkdown>{msg.content}</ReactMarkdown>
+            </div>
           </div>
         ))}
         {isLoading && (

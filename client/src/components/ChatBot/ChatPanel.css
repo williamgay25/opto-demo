@@ -12,11 +12,9 @@ flex-direction: column;
 transition: right 0.3s ease;
 z-index: 1000;
 }
-
 .chat-panel.open {
 right: 0;
 }
-
 .chat-header {
 display: flex;
 justify-content: space-between;
@@ -26,12 +24,10 @@ border-bottom: 1px solid #e9ecef;
 background-color: #26665e;
 color: white;
 }
-
 .chat-header h3 {
 margin: 0;
 font-size: 16px;
 }
-
 .close-button {
 background: none;
 border: none;
@@ -44,7 +40,6 @@ justify-content: center;
 width: 30px;
 height: 30px;
 }
-
 .chat-messages {
 flex: 1;
 padding: 16px;
@@ -53,7 +48,6 @@ display: flex;
 flex-direction: column;
 gap: 12px;
 }
-
 .message {
 max-width: 85%;
 padding: 10px 14px;
@@ -61,19 +55,128 @@ border-radius: 18px;
 font-size: 14px;
 line-height: 1.4;
 }
-
 .message.user {
 align-self: flex-end;
 background-color: #26665e;
 color: white;
 border-bottom-right-radius: 4px;
 }
-
 .message.assistant {
 align-self: flex-start;
 background-color: #f1f3f5;
 color: #333;
 border-bottom-left-radius: 4px;
+}
+.message-content {
+width: 100%;
+}
+
+/* Markdown Styling */
+.message-content p {
+margin: 0 0 8px 0;
+}
+.message-content p:last-child {
+margin-bottom: 0;
+}
+.message-content ul, 
+.message-content ol {
+margin: 8px 0;
+padding-left: 20px;
+}
+.message-content li {
+margin-bottom: 4px;
+}
+.message-content a {
+color: #26665e;
+text-decoration: underline;
+}
+.message.user .message-content a {
+color: #e0f2f1;
+}
+.message-content code {
+background-color: rgba(0, 0, 0, 0.06);
+padding: 2px 4px;
+border-radius: 4px;
+font-family: monospace;
+font-size: 12px;
+}
+.message.user .message-content code {
+background-color: rgba(255, 255, 255, 0.2);
+}
+.message-content pre {
+background-color: rgba(0, 0, 0, 0.06);
+padding: 8px;
+border-radius: 6px;
+overflow-x: auto;
+margin: 8px 0;
+}
+.message.user .message-content pre {
+background-color: rgba(255, 255, 255, 0.1);
+}
+.message-content pre code {
+background: none;
+padding: 0;
+}
+.message-content h1, 
+.message-content h2, 
+.message-content h3, 
+.message-content h4, 
+.message-content h5, 
+.message-content h6 {
+margin: 12px 0 8px 0;
+font-weight: 600;
+}
+.message-content h1 {
+font-size: 18px;
+}
+.message-content h2 {
+font-size: 16px;
+}
+.message-content h3, 
+.message-content h4, 
+.message-content h5, 
+.message-content h6 {
+font-size: 14px;
+}
+.message-content hr {
+margin: 12px 0;
+border: none;
+border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.message.user .message-content hr {
+border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.message-content blockquote {
+border-left: 3px solid #dee2e6;
+margin: 8px 0;
+padding-left: 10px;
+color: #495057;
+}
+.message.user .message-content blockquote {
+border-left: 3px solid rgba(255, 255, 255, 0.4);
+color: rgba(255, 255, 255, 0.9);
+}
+.message-content table {
+border-collapse: collapse;
+width: 100%;
+margin: 8px 0;
+font-size: 12px;
+}
+.message-content th,
+.message-content td {
+border: 1px solid #dee2e6;
+padding: 4px 6px;
+text-align: left;
+}
+.message.user .message-content th,
+.message.user .message-content td {
+border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.message-content th {
+background-color: rgba(0, 0, 0, 0.05);
+}
+.message.user .message-content th {
+background-color: rgba(255, 255, 255, 0.1);
 }
 
 .message-content.loading {
@@ -83,7 +186,6 @@ align-items: center;
 justify-content: center;
 padding: 8px;
 }
-
 .dot {
 width: 8px;
 height: 8px;
@@ -92,20 +194,16 @@ border-radius: 50%;
 opacity: 0.6;
 animation: pulse 1.5s infinite ease-in-out;
 }
-
 .dot:nth-child(2) {
 animation-delay: 0.2s;
 }
-
 .dot:nth-child(3) {
 animation-delay: 0.4s;
 }
-
 @keyframes pulse {
 0%, 100% { opacity: 0.4; transform: scale(1); }
 50% { opacity: 1; transform: scale(1.2); }
 }
-
 .chat-input-container {
 display: flex;
 padding: 16px;
@@ -113,7 +211,6 @@ border-top: 1px solid #e9ecef;
 gap: 10px;
 align-items: flex-end;
 }
-
 .chat-input {
 flex: 1;
 padding: 12px;
@@ -128,12 +225,10 @@ transition: height 0.1s ease;
 overflow-y: hidden;
 line-height: 1.4;
 }
-
 .chat-input:focus {
 outline: none;
 border-color: #26665e;
 }
-
 .send-button {
 background-color: #26665e;
 color: white;
@@ -146,12 +241,10 @@ height: 40px;
 min-height: 40px;
 flex-shrink: 0;
 }
-
 .send-button:disabled {
 background-color: #adb5bd;
 cursor: not-allowed;
 }
-
 .simulation-controls {
 display: flex;
 justify-content: space-between;
@@ -159,7 +252,6 @@ padding: 10px 16px;
 border-top: 1px solid #e9ecef;
 background-color: #f8f9fa;
 }
-
 @media (max-width: 480px) {
 .chat-panel {
   width: 100%;
