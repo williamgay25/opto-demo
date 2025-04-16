@@ -89,3 +89,10 @@ border: 1px solid #dee2e6;
 .button:hover {
 opacity: 0.9;
 }
+
+.loading-message {
+font-size: 1.2rem;
+text-align: center;
+margin-top: 100px;
+}
+  
