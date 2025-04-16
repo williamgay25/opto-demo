@@ -1,0 +1,38 @@
+/* src/components/PortfolioShift/PortfolioShift.css */
+.portfolio-shift {
+    margin-bottom: 20px;
+  }
+  
+  .portfolio-quartile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .quartile-text {
+    color: #1e7d32;
+    font-weight: 500;
+  }
+  
+  .quartile-arrow {
+    font-size: 10px;
+    color: #6c757d;
+  }
+  
+  .metrics-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .metrics-container {
+      flex-direction: column;
+    }
+  }
