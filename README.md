@@ -2,6 +2,8 @@
 
 This is a portfolio management and simulation tool that allows financial advisors to analyze and adjust investment portfolios.
 
+![Opto Demo](demo.mov)
+
 ## Core Features
 
 - Interactive dashboard displaying portfolio metrics (return, yield, volatility)

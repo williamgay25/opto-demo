@@ -1,5 +1,6 @@
 mock_data = {
     "portfolio_type": "Balanced Portfolio",
+    "portfolio_size": 25.0,
     "metrics": {
         "return": { "value": 13.7, "change": 0.0 },
         "yield": { "value": 0.4, "change": 0.0 },
