@@ -28,7 +28,8 @@ const Header = ({ portfolioType, portfolioData, isSimulation, onReset, onSave, o
         <div className="portfolio-dropdown">
           <button 
             className="dropdown-button"
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            /* Turning off drop down button for now... */
+            /* onClick={() => setIsDropdownOpen(!isDropdownOpen)} */
           >
             {portfolioType}
             <span className="dropdown-arrow">▼</span>
@@ -56,7 +57,8 @@ const Header = ({ portfolioType, portfolioData, isSimulation, onReset, onSave, o
         <div className="header-actions">
           <button 
             className="menu-button"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            /* Turning off menu button for now */
+            /* onClick={() => setIsMenuOpen(!isMenuOpen)} */
           >
             ⋮
           </button>
