@@ -55,11 +55,12 @@ const Dashboard = () => {
 
     if (update.type === "reset") {
       // TODO: Add communication with the backend
+      setPortfolioData(originalData);
       console.log("Resetting portfolio data")
     }
 
     if (update.type === "save") {
-      // TODO: Add communication with the backend
+      // TODO: Add communication with the backend      
       console.log("Saving portfolio data")
     }
 
