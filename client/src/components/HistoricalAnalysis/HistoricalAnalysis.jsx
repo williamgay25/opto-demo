@@ -5,23 +5,11 @@ import './HistoricalAnalysis.css';
 
 const HistoricalAnalysis = ({ data }) => {
   const chartRef = useRef(null);
-  const [activePage, setActivePage] = useState(1);
-  const totalPages = 3;
   
   useEffect(() => {
     if (!chartRef.current ) return;
     
-    const inflationData = data.inflationData || [
-      { year: 2007, value: 0 },
-      { year: 2009, value: 10 },
-      { year: 2011, value: 20 },
-      { year: 2013, value: 30 },
-      { year: 2015, value: 45 },
-      { year: 2017, value: 60 },
-      { year: 2019, value: 70 },
-      { year: 2021, value: 75 },
-      { year: 2023, value: 68 },
-    ];
+    const inflationData = data.inflation_data;
     
     d3.select(chartRef.current).selectAll('*').remove();
     
@@ -136,40 +124,10 @@ const HistoricalAnalysis = ({ data }) => {
     );
   };
   
-  const handlePrevPage = () => {
-    setActivePage(prev => (prev > 1 ? prev - 1 : prev));
-  };
-  
-  const handleNextPage = () => {
-    setActivePage(prev => (prev < totalPages ? prev + 1 : prev));
-  };
-  
   return (
     <div className="historical-analysis dashboard-section">
       <div className="section-header">
         <h2 className="section-title">Historical portfolio analysis</h2>
-        
-        <div className="pagination-controls">
-          <button 
-            className="pagination-button"
-            onClick={handlePrevPage}
-            disabled={activePage === 1}
-          >
-            ←
-          </button>
-          
-          <span className="pagination-info">
-            {activePage} / {totalPages}
-          </span>
-          
-          <button 
-            className="pagination-button"
-            onClick={handleNextPage}
-            disabled={activePage === totalPages}
-          >
-            →
-          </button>
-        </div>
       </div>
       
       {renderPerformancePeriods()}

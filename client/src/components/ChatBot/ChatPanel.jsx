@@ -17,7 +17,7 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
     if (messages.length === 0) {
       setMessages([{
         role: 'assistant',
-        content: "Hi there! I'm Opto, your portfolio assistant. Ready to explore private alternatives or fine-tune your allocations? Just ask."
+        content: "Hi there! I'm Opto, your portfolio assistant. Ready to fine-tune your allocations? Just ask."
       }]);
     }
   }, []);

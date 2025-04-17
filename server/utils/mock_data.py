@@ -1,35 +1,11 @@
 mock_data = {
-    "portfolioType": "Balanced Portfolio",
+    "portfolio_type": "Balanced Portfolio",
     "metrics": {
         "return": { "value": 13.7, "change": 2 },
         "yield": { "value": 0.4, "change": 0.4 },
         "volatility": { "value": 10.8, "change": 0.2 }
     },
-    "asset_returns": {
-        "private_equity": 16.0,
-        "venture_capital": 20.0,
-        "real_estate_value": 12.0,
-        "real_estate_core": 8.0,
-        "public_bonds": 4.0,
-        "public_equities": 8.0
-    },
-    "asset_volatility": {
-        "private_equity": 18.0,
-        "venture_capital": 30.0,
-        "real_estate_value": 15.0,
-        "real_estate_core": 10.0,
-        "public_bonds": 5.0,
-        "public_equities": 15.0
-    },
-    "asset_yield": {
-        "private_equity": 0.0,
-        "venture_capital": 0.0,
-        "real_estate_value": 2.0,
-        "real_estate_core": 4.0,
-        "public_bonds": 4.0,
-        "public_equities": 2.0
-    },
-    "assetAllocation": {
+    "asset_allocation": {
         "private": {
             "total": 10.0,
             "categories": [
@@ -47,7 +23,7 @@ mock_data = {
             ]
         }
     },
-    "projectedValue": {
+    "projected_value": {
         "current": [
             { "year": 2024, "value": 5 },
             { "year": 2026, "value": 8 },
@@ -69,45 +45,33 @@ mock_data = {
             { "year": 2038, "value": 60 }
         ]
     },
+
     "historical_scenarios": {
         "all_time": {
             "period": "2007-2024",
             "value": 1 
         },
+        "inflation_data": [
+            { "year": 2007, "value": 0 },
+            { "year": 2009, "value": 10 },
+            { "year": 2011, "value": 20 },
+            { "year": 2013, "value": 30 },
+            { "year": 2015, "value": 45 },
+            { "year": 2017, "value": 60 },
+            { "year": 2019, "value": 70 },
+            { "year": 2021, "value": 75 },
+            { "year": 2023, "value": 68 },
+        ],
         "financial_crisis": {
             "period": "2007-2009",
-            "asset_performance": {
-                "private_equity": -25.0,
-                "venture_capital": -30.0,
-                "real_estate_value": -35.0,
-                "real_estate_core": -20.0,
-                "public_bonds": 5.0,
-                "public_equities": -40.0
-            },
             "value": 2
         },
         "inflation": {
             "period": "2007-2024",
-            "asset_performance": {
-                "private_equity": 12.0,
-                "venture_capital": 15.0,
-                "real_estate_value": 8.0,
-                "real_estate_core": 6.0,
-                "public_bonds": -2.0,
-                "public_equities": 5.0
-            },
             "value": 2
         },
         "european_debt_crisis": {
             "period": "2010-2012",
-            "asset_performance": {
-                "private_equity": -5.0,
-                "venture_capital": -8.0,
-                "real_estate_value": -10.0,
-                "real_estate_core": -3.0,
-                "public_bonds": 8.0,
-                "public_equities": -15.0
-            },
             "value": 2
         }
     }
