@@ -137,40 +137,41 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
   const handleFunctionResult = (data) => {
     setInSimulation(true);
     
+    console.log(data.function_name)
+    console.log(onPortfolioUpdate)
     if (data.function_name === "simulate_allocation_change") {
-      onPortfolioUpdate && onPortfolioUpdate({
+      onPortfolioUpdate({
         type: "simulation",
-        allocations: data.simulated_allocations,
-        metrics: data.simulated_metrics
+        data: data
       });
     } 
   };
   
   const handleResetSimulation = () => {
-    if (inSimulation && onPortfolioUpdate) {
-      onPortfolioUpdate({ type: 'reset' });
+    if (inSimulation) {
+      onPortfolioUpdate({ 
+        type: 'reset' 
+      });
       setInSimulation(false);
       
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: 'I\'ve reset the portfolio to its original state.'
       }]);
-
-      // TODO: Add communication with the backend
     }
   };
   
   const handleSaveSimulation = () => {
-    if (inSimulation && onPortfolioUpdate) {
-      onPortfolioUpdate({ type: 'save' });
+    if (inSimulation) {
+      onPortfolioUpdate({ 
+        type: 'save' 
+      });
       setInSimulation(false);
       
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: 'I\'ve saved the changes to the portfolio.'
       }]);
-
-      // TODO: Add communication with the backend
     }
   };
   

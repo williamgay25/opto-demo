@@ -61,8 +61,8 @@ def simulate_allocation_change(portfolio_data, function_args):
             "total": 10.0,
             "change": 0.0,
             "categories": [
-                { "name": "Venture capital - early stage", "value": 2.5, "change": 0.0 },
-                { "name": "Private equity - buyout", "value": 2.5, "change": 0.0 },
+                { "name": "Venture capital - early stage", "value": 3.5, "change": 1.0 },
+                { "name": "Private equity - buyout", "value": 1.5, "change": -1.0 },
                 { "name": "Real estate - value add", "value": 2.5, "change": 0.0 },
                 { "name": "Real estate - core", "value": 2.5, "change": 0.0 }
             ]

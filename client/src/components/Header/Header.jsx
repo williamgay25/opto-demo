@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ChatButton from '../ChatBot/ChatButton.jsx';
 import './Header.css';
 
-const Header = ({ portfolioType, portfolioData, isSimulation, onReset, onSave, onPortfolioUpdate }) => {
+const Header = ({ portfolioType, portfolioData, isSimulation, onPortfolioUpdate }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -72,22 +72,6 @@ const Header = ({ portfolioType, portfolioData, isSimulation, onReset, onSave, o
             </div>
           )}
           
-          {/* Removing these buttons for clarity right now */}
-          {/* <button 
-            className={`reset-button ${isSimulation ? 'active' : ''}`} 
-            onClick={onReset}
-            disabled={!isSimulation}
-          >
-            Reset
-          </button> */}
-          {/* <button 
-            className={`save-button ${isSimulation ? 'active' : ''}`}
-            onClick={onSave}
-            disabled={!isSimulation}
-          >
-            Save
-          </button> */}
-
           <ChatButton 
             portfolioData={portfolioData} 
             onPortfolioUpdate={onPortfolioUpdate}

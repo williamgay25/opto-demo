@@ -22,6 +22,7 @@ const Dashboard = () => {
         const data = await response.json();
         setPortfolioData(data);
         setOriginalData(data);
+
         console.log('Portfolio data loaded from backend');
       } catch (error) {
         console.error('Error fetching portfolio data:', error);
@@ -38,37 +39,30 @@ const Dashboard = () => {
     }
 
     if (update.type === "simulation") {
+      console.log(update.data);
+      const updated_data = JSON.parse(JSON.stringify(portfolioData));
+      console.log(portfolioData);
       
-      setPortfolioData(prevData => {
-        const newData = { ...prevData };
-  
-        const mapping = {
-          'venture_capital': 'Venture capital - early stage',
-          'private_equity': 'Private equity - buyout',
-          'real_estate_value': 'Real estate - value add',
-          'real_estate_core': 'Real estate - core',
-          'public_bonds': 'Public bonds',
-          'public_equities': 'Public equities'
-        };
-        
-        return newData;
-      });
+      const simulated_allocations = update.data.simulated_allocations;
+      const simulated_metrics = update.data.simulated_metrics;
+      
+      updated_data.asset_allocation = simulated_allocations;
+      updated_data.metrics = simulated_metrics;
+      
+      console.log(updated_data);
+      setPortfolioData(updated_data);
     }
-  };
 
-  const handleResetPortfolio = () => {
-    if (isSimulation && originalData) {
-      setPortfolioData(originalData);
-      setIsSimulation(false);
+    if (update.type === "reset") {
+      // TODO: Add communication with the backend
+      console.log("Resetting portfolio data")
     }
-  };
 
-  const handleSavePortfolio = () => {
-    console.log('Saving portfolio:', portfolioData);
-    // TODO: Add saving to backend with logging of changes
+    if (update.type === "save") {
+      // TODO: Add communication with the backend
+      console.log("Saving portfolio data")
+    }
 
-    setOriginalData(portfolioData);
-    setIsSimulation(false);
   };
 
   if (!portfolioData) {
@@ -85,8 +79,6 @@ const Dashboard = () => {
         portfolioType={portfolioData.portfolio_type} 
         portfolioData={portfolioData}
         isSimulation={isSimulation}
-        onReset={handleResetPortfolio}
-        onSave={handleSavePortfolio}
         onPortfolioUpdate={handlePortfolioUpdate}
       />
       

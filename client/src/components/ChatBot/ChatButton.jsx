@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ChatPanel from './ChatPanel';
 import './ChatButton.css';
 
-const ChatButton = ({ portfolioData }) => {
+const ChatButton = ({ portfolioData, onPortfolioUpdate }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   
   return (
@@ -21,6 +21,7 @@ const ChatButton = ({ portfolioData }) => {
         isOpen={isChatOpen} 
         onClose={() => setIsChatOpen(false)}
         portfolioData={portfolioData}
+        onPortfolioUpdate={onPortfolioUpdate}
       />
     </>
   );
