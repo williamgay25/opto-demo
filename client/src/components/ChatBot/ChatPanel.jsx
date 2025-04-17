@@ -72,7 +72,6 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
       });
       
       const data = await response.json();
-      console.log(data)
       
       let assistantMessage;
       
