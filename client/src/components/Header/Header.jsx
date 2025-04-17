@@ -72,20 +72,22 @@ const Header = ({ portfolioType, portfolioData, isSimulation, onReset, onSave, o
             </div>
           )}
           
-          <button 
+          {/* Removing these buttons for clarity right now */}
+          {/* <button 
             className={`reset-button ${isSimulation ? 'active' : ''}`} 
             onClick={onReset}
             disabled={!isSimulation}
           >
             Reset
-          </button>
-          <button 
+          </button> */}
+          {/* <button 
             className={`save-button ${isSimulation ? 'active' : ''}`}
             onClick={onSave}
             disabled={!isSimulation}
           >
             Save
-          </button>
+          </button> */}
+
           <ChatButton 
             portfolioData={portfolioData} 
             onPortfolioUpdate={onPortfolioUpdate}

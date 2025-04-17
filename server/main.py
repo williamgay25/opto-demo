@@ -50,9 +50,32 @@ def generate(messages: List):
     return completion.choices[0].message
 
 def simulate_allocation_change(portfolio_data, function_args):
+    metrics = {
+        "return": { "value": 13.7, "change": 0.0 },
+        "yield": { "value": 0.4, "change": 0.0 },
+        "volatility": { "value": 10.8, "change": 0.0 }
+    }
 
-    allocation = portfolio_data.allocations
-    metrics = portfolio_data.metrics
+    allocation = {
+        "private": {
+            "total": 10.0,
+            "change": 0.0,
+            "categories": [
+                { "name": "Venture capital - early stage", "value": 2.5, "change": 0.0 },
+                { "name": "Private equity - buyout", "value": 2.5, "change": 0.0 },
+                { "name": "Real estate - value add", "value": 2.5, "change": 0.0 },
+                { "name": "Real estate - core", "value": 2.5, "change": 0.0 }
+            ]
+        },
+        "public": {
+            "total": 90.0,
+            "change": 0.0,
+            "categories": [
+                { "name": "Public bonds", "value": 54.0, "change": 0.0 },
+                { "name": "Public equities", "value": 36.0, "change": 0.0 }
+            ]
+        }
+    }
 
     return allocation, metrics
 
@@ -124,7 +147,7 @@ async def chat(request: ChatRequest):
 
         return {
             "type": "assistant_result",
-            "assistant_message": initial_result
+            "assistant_message": initial_result.content
         }
     
     except Exception as e:

@@ -4,7 +4,7 @@ curl -X POST http://localhost:8000/chat \
     "messages": [
       {
         "role": "user",
-        "content": "Change venture capital allocation to 10 percent."
+        "content": "Can you increase the Venture Capital allocation by 1 percent?"
       }
     ],
     "portfolio_data": {

@@ -55,37 +55,38 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+
         body: JSON.stringify({
           messages: [...messages, userMessage],
+          
           portfolio_data: {
-            allocations: getFlatAllocations(portfolioData.assetAllocation),
+            allocations: getFlatAllocations(portfolioData.asset_allocation),
+
             metrics: {
-              return: portfolioData.metrics.return.value / 100, // Convert to decimal for backend
-              yield: portfolioData.metrics.yield.value / 100,
-              volatility: portfolioData.metrics.volatility.value / 100
+              return: portfolioData.metrics.return.value,
+              yield: portfolioData.metrics.yield.value,
+              volatility: portfolioData.metrics.volatility.value
             }
           }
         }),
       });
       
       const data = await response.json();
+      console.log(data)
       
       let assistantMessage;
       
       if (data.type === 'function_result') {
-        // Handle function results (simulation, optimization, etc.)
         handleFunctionResult(data);
         
-        // Add a message about what was done
         assistantMessage = {
           role: 'assistant',
-          content: generateFunctionResultMessage(data),
-          functionResult: data  // Store the full result for potential UI updates
+          content: data.assistant_message,
         };
       } else {
         assistantMessage = {
           role: 'assistant',
-          content: data.assistant_message?.content || 'I processed your request.'
+          content: data.assistant_message
         };
       }
       
@@ -134,10 +135,8 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
   };
   
   const handleFunctionResult = (data) => {
-    // Set simulation mode flag
     setInSimulation(true);
     
-    // Pass the result up to parent component
     if (data.function_name === "simulate_allocation_change") {
       onPortfolioUpdate && onPortfolioUpdate({
         type: "simulation",
@@ -145,63 +144,6 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
         metrics: data.simulated_metrics
       });
     } 
-    else if (data.function_name === "analyze_historical_scenario") {
-      onPortfolioUpdate && onPortfolioUpdate({
-        type: "scenario_analysis",
-        scenario: data.scenario,
-        impact: data.total_portfolio_impact,
-        impactByAsset: data.impact_by_asset
-      });
-    }
-    else if (data.function_name === "optimize_allocation") {
-      onPortfolioUpdate && onPortfolioUpdate({
-        type: "optimization",
-        allocations: data.optimized_allocations,
-        metrics: data.optimized_metrics,
-        shifted: data.shifted
-      });
-    }
-  };
-  
-  const generateFunctionResultMessage = (data) => {
-    // Create a user-friendly message based on the function result
-    switch (data.function_name) {
-      case "simulate_allocation_change":
-        const assetClass = data.simulated_allocations 
-          ? Object.keys(data.simulated_allocations).find(
-              key => data.simulated_allocations[key] !== data.original_allocations[key]
-            )
-          : null;
-          
-        const oldValue = assetClass ? data.original_allocations[assetClass] : null;
-        const newValue = assetClass ? data.simulated_allocations[assetClass] : null;
-        
-        return `I've simulated changing your ${formatAssetName(assetClass)} allocation from ${oldValue}% to ${newValue}%. This would change your expected return from ${(data.original_metrics.return * 100).toFixed(1)}% to ${(data.simulated_metrics.return * 100).toFixed(1)}%, and volatility from ${(data.original_metrics.volatility * 100).toFixed(1)}% to ${(data.simulated_metrics.volatility * 100).toFixed(1)}%.`;
-      
-      case "analyze_historical_scenario":
-        return `I've analyzed how your portfolio would perform in a ${data.scenario.replace(/_/g, ' ')} scenario. The total impact would be ${data.total_portfolio_impact > 0 ? '+' : ''}${data.total_portfolio_impact}%. The dashboard has been updated to reflect this analysis.`;
-      
-      case "optimize_allocation":
-        return `I've optimized your portfolio by shifting ${data.shifted.amount}% from ${formatAssetName(data.shifted.from)} to ${formatAssetName(data.shifted.to)}. This change increases your expected return from ${(data.original_metrics.return * 100).toFixed(1)}% to ${(data.optimized_metrics.return * 100).toFixed(1)}% while managing volatility.`;
-      
-      default:
-        return "I've processed your request and updated the portfolio visualization.";
-    }
-  };
-  
-  const formatAssetName = (assetKey) => {
-    if (!assetKey) return '';
-    
-    const nameMap = {
-      'venture_capital': 'Venture Capital',
-      'private_equity': 'Private Equity',
-      'real_estate_value': 'Real Estate (Value Add)',
-      'real_estate_core': 'Real Estate (Core)',
-      'public_bonds': 'Public Bonds',
-      'public_equities': 'Public Equities'
-    };
-    
-    return nameMap[assetKey] || assetKey;
   };
   
   const handleResetSimulation = () => {
@@ -209,11 +151,12 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
       onPortfolioUpdate({ type: 'reset' });
       setInSimulation(false);
       
-      // Add a message about the reset
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: 'I\'ve reset the portfolio to its original state.'
       }]);
+
+      // TODO: Add communication with the backend
     }
   };
   
@@ -222,11 +165,12 @@ const ChatPanel = ({ isOpen, onClose, portfolioData, onPortfolioUpdate }) => {
       onPortfolioUpdate({ type: 'save' });
       setInSimulation(false);
       
-      // Add a message about the save
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: 'I\'ve saved the changes to the portfolio.'
       }]);
+
+      // TODO: Add communication with the backend
     }
   };
   
