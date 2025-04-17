@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import Dict, List, Optional
+from typing import Dict, List
 from utils.tools import tools
 from utils.mock_data import mock_data
 from openai import OpenAI
@@ -40,13 +40,21 @@ app.add_middleware(
     expose_headers=["*"]
 )
 
-def calculate_metrics(allocations):
-    """Calculate portfolio metrics based on allocations"""
-    return {
-        "return": sum([allocations[asset] * mock_data["asset_returns"][asset] for asset in allocations]) / 100,
-        "volatility": sum([allocations[asset] * mock_data["asset_volatility"][asset] for asset in allocations]) / 100,
-        "yield": sum([allocations[asset] * mock_data["asset_yield"][asset] for asset in allocations]) / 100
-    }
+def generate(messages: List):
+    completion = client.chat.completions.create(
+        model="gpt-4o",
+        messages=messages,
+        tools=tools
+    )
+
+    return completion.choices[0].message
+
+def simulate_allocation_change(portfolio_data, function_args):
+
+    allocation = portfolio_data.allocations
+    metrics = portfolio_data.metrics
+
+    return allocation, metrics
 
 @app.get("/")
 def read_root():
@@ -77,92 +85,46 @@ async def chat(request: ChatRequest):
             "content": f"You are an AI assistant for Opto Investments. You help financial advisors analyze and optimize portfolios. {portfolio_context}"
         })
 
-        completion = client.chat.completions.create(
-            model="gpt-4o",
-            messages=messages,
-            tools=tools
-        ) 
+        initial_result = generate(messages)
+        messages.append(initial_result)
 
-        result = completion.choices[0].message
-
-        if result.tool_calls:
-            tool_call = result.tool_calls[0]
+        if initial_result.tool_calls:
+            tool_call = initial_result.tool_calls[0]
             function_name = tool_call.function.name
             function_args = json.loads(tool_call.function.arguments)
             
             if function_name == "simulate_allocation_change":
-                asset_class = function_args["asset_class"]
-                new_percentage = function_args["new_percentage"]
+                allocation, metrics = simulate_allocation_change(request.portfolio_data, function_args)
 
-                simulated_allocations = request.portfolio_data.allocations.copy()
-                simulated_allocations[asset_class] = new_percentage
+                tool_context = f"""
+                Simulated portfolio data:
+                - Return: {metrics['return']}%
+                - Volatility: {metrics['volatility']}%
+                - Yield: {metrics['yield']}%
+                - Allocations: {json.dumps(allocation)}
+                """
 
-                new_metrics = calculate_metrics(simulated_allocations)
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call.id,
+                    "content": tool_context
+                })
 
-                return {
-                    "type": "function_result",
-                    "function_name": function_name,
-                    "original_allocations": request.portfolio_data.allocations,
-                    "simulated_allocations": simulated_allocations,
-                    "original_metrics": request.portfolio_data.metrics,
-                    "simulated_metrics": new_metrics,
-                    "assistant_message": result
-                }
-
-            elif function_name == "analyze_historical_scenario":
-                scenario = function_args["scenario"]
-                performance_data = mock_data["historical_scenarios"].get(scenario, {}).get("asset_performance", {})
-
-                impact = {
-                    asset: round(
-                        request.portfolio_data.allocations.get(asset, 0) * (performance_data.get(asset, 0) / 100), 2
-                    )
-                    for asset in request.portfolio_data.allocations
-                }
-
-                total_impact = round(sum(impact.values()), 2)
-
-                return {
-                    "type": "function_result",
-                    "function_name": function_name,
-                    "scenario": scenario,
-                    "performance_data": performance_data,
-                    "impact_by_asset": impact,
-                    "total_portfolio_impact": total_impact,
-                    "assistant_message": result
-                }
-
-            elif function_name == "optimize_allocation":
-                returns = mock_data["asset_returns"]
-                allocations = request.portfolio_data.allocations.copy()
-
-                lowest = min(returns, key=lambda a: returns[a])
-                highest = max(returns, key=lambda a: returns[a])
-
-                shift_amount = min(allocations.get(lowest, 0), 5.0)
-                allocations[lowest] -= shift_amount
-                allocations[highest] = allocations.get(highest, 0) + shift_amount
-
-                new_metrics = calculate_metrics(allocations)
+                tool_result = generate(messages)
 
                 return {
                     "type": "function_result",
                     "function_name": function_name,
                     "original_allocations": request.portfolio_data.allocations,
-                    "optimized_allocations": allocations,
+                    "simulated_allocations": allocation,
                     "original_metrics": request.portfolio_data.metrics,
-                    "optimized_metrics": new_metrics,
-                    "shifted": {
-                        "from": lowest,
-                        "to": highest,
-                        "amount": shift_amount
-                    },
-                    "assistant_message": result
+                    "simulated_metrics": metrics,
+                    "assistant_message": tool_result.content
                 }
 
         return {
             "type": "assistant_result",
-            "assistant_message": result
+            "assistant_message": initial_result
         }
     
     except Exception as e:
