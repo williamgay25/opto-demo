@@ -124,7 +124,7 @@ def simulate_allocation_change(portfolio_data, function_args):
         
         for key in other_keys:
             proportion = new_allocations[key] / total_other
-            increase = -delta * proportion
+            increase = abs(delta) * proportion 
             new_allocations[key] = round(new_allocations[key] + increase, 1)
     
     new_metrics = {
