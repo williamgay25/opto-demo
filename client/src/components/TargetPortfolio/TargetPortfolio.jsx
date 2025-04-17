@@ -61,7 +61,7 @@ const TargetPortfolio = ({ privateData, publicData }) => {
           <span>Private</span>
           <div className="allocation-category-right">
             <span className="allocation-value">{privateData.total.toFixed(1)}%</span>
-            {renderChangeIndicator(10.0)} {/* Hardcoded from the image */}
+            {renderChangeIndicator(privateData.change)}
           </div>
         </div>
         
@@ -76,7 +76,7 @@ const TargetPortfolio = ({ privateData, publicData }) => {
           <span>Public</span>
           <div className="allocation-category-right">
             <span className="allocation-value">{publicData.total.toFixed(1)}%</span>
-            {renderChangeIndicator(10.0)} {/* Hardcoded from the image */}
+            {renderChangeIndicator(publicData.change)}
           </div>
         </div>
         

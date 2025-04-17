@@ -9,7 +9,7 @@ const HistoricalAnalysis = ({ data }) => {
   useEffect(() => {
     if (!chartRef.current ) return;
     
-    const inflationData = data.inflation_data;
+    const allTimeData = data.all_time.projections;
     
     d3.select(chartRef.current).selectAll('*').remove();
     
@@ -25,7 +25,7 @@ const HistoricalAnalysis = ({ data }) => {
       .attr('transform', `translate(${margin.left},${margin.top})`);
     
     const xScale = d3.scaleLinear()
-      .domain([d3.min(inflationData, d => d.year), d3.max(inflationData, d => d.year)])
+      .domain([d3.min(allTimeData, d => d.year), d3.max(allTimeData, d => d.year)])
       .range([0, width]);
     
     const yScale = d3.scaleLinear()
@@ -49,13 +49,13 @@ const HistoricalAnalysis = ({ data }) => {
       .curve(d3.curveMonotoneX);
     
     svg.append('path')
-      .datum(inflationData)
+      .datum(allTimeData)
       .attr('fill', 'none')
       .attr('stroke', '#8dd1e1')
       .attr('stroke-width', 2)
       .attr('d', line);
     
-    const targetData = inflationData.map(d => ({
+    const targetData = allTimeData.map(d => ({
       year: d.year,
       value: d.value + 5
     }));
@@ -132,8 +132,8 @@ const HistoricalAnalysis = ({ data }) => {
       
       {renderPerformancePeriods()}
       
-      <div className="inflation-analysis">
-        <h3 className="inflation-title">Inflation and rising rates (Jan 2007 - Oct 2024)</h3>
+      <div className="all-time-analysis">
+        <h3 className="all-time-title">All time (Jan 2007 - Oct 2024)</h3>
         
         <div className="chart-container" ref={chartRef}></div>
       </div>

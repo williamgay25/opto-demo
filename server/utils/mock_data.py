@@ -1,25 +1,27 @@
 mock_data = {
     "portfolio_type": "Balanced Portfolio",
     "metrics": {
-        "return": { "value": 13.7, "change": 2 },
-        "yield": { "value": 0.4, "change": 0.4 },
-        "volatility": { "value": 10.8, "change": 0.2 }
+        "return": { "value": 13.7, "change": 0.0 },
+        "yield": { "value": 0.4, "change": 0.0 },
+        "volatility": { "value": 10.8, "change": 0.0 }
     },
     "asset_allocation": {
         "private": {
             "total": 10.0,
+            "change": 0.0,
             "categories": [
-                { "name": "Venture capital - early stage", "value": 2.5, "change": 2.5 },
-                { "name": "Private equity - buyout", "value": 2.5, "change": 2.5 },
-                { "name": "Real estate - value add", "value": 2.5, "change": 2.5 },
-                { "name": "Real estate - core", "value": 2.5, "change": 2.5 }
+                { "name": "Venture capital - early stage", "value": 2.5, "change": 0.0 },
+                { "name": "Private equity - buyout", "value": 2.5, "change": 0.0 },
+                { "name": "Real estate - value add", "value": 2.5, "change": 0.0 },
+                { "name": "Real estate - core", "value": 2.5, "change": 0.0 }
             ]
         },
         "public": {
             "total": 90.0,
+            "change": 0.0,
             "categories": [
-                { "name": "Public bonds", "value": 54.0, "change": 6.0 },
-                { "name": "Public equities", "value": 36.0, "change": 4.0 }
+                { "name": "Public bonds", "value": 54.0, "change": 0.0 },
+                { "name": "Public equities", "value": 36.0, "change": 0.0 }
             ]
         }
     },
@@ -49,30 +51,30 @@ mock_data = {
     "historical_scenarios": {
         "all_time": {
             "period": "2007-2024",
-            "value": 1 
+            "value": 1,
+            "projections": [
+                { "year": 2007, "value": 0 },
+                { "year": 2009, "value": 10 },
+                { "year": 2011, "value": 20 },
+                { "year": 2013, "value": 30 },
+                { "year": 2015, "value": 45 },
+                { "year": 2017, "value": 60 },
+                { "year": 2019, "value": 70 },
+                { "year": 2021, "value": 75 },
+                { "year": 2023, "value": 68 },
+            ],
         },
-        "inflation_data": [
-            { "year": 2007, "value": 0 },
-            { "year": 2009, "value": 10 },
-            { "year": 2011, "value": 20 },
-            { "year": 2013, "value": 30 },
-            { "year": 2015, "value": 45 },
-            { "year": 2017, "value": 60 },
-            { "year": 2019, "value": 70 },
-            { "year": 2021, "value": 75 },
-            { "year": 2023, "value": 68 },
-        ],
         "financial_crisis": {
             "period": "2007-2009",
             "value": 2
         },
         "inflation": {
             "period": "2007-2024",
-            "value": 2
+            "value": 2,
         },
         "european_debt_crisis": {
             "period": "2010-2012",
-            "value": 2
+            "value": 2,
         }
     }
 }

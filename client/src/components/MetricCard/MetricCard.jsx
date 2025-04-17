@@ -23,7 +23,7 @@ const MetricCard = ({ title, value, change, isPositive, format = 'default', info
       <div className="metric-value-container">
         <span className="metric-value">{formatValue(value, format)}</span>
         
-        {change !== undefined && (
+        {change !== undefined && change !== 0 && (
           <div className={`metric-change ${isPositive ? 'positive' : 'negative'}`}>
             <span className="change-arrow">
               {isPositive ? '↑' : '↓'}
