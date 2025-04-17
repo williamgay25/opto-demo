@@ -237,7 +237,7 @@ async def chat(request: ChatRequest):
 
         messages.insert(0, {
             "role": "system", 
-            "content": f"You are an AI assistant for Opto Investments. You help financial advisors analyze and optimize portfolios. {portfolio_context}"
+            "content": f"You are an AI assistant for Opto Investments. You help financial advisors run analyses by updating portfolio allocations. {portfolio_context}"
         })
 
         initial_result = generate(messages)
