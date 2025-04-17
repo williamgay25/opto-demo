@@ -2,7 +2,7 @@
 
 This is a portfolio management and simulation tool that allows financial advisors to analyze and adjust investment portfolios.
 
-![Opto Demo](demo.mov)
+![Opto Demo](demo.gif)
 
 ## Core Features
 
